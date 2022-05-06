@@ -80,10 +80,7 @@ class Enemy:
         self.attack = randint(4,12)
         self.speed = randint(1,4)
         self.gold = randint(2,10)
-        self.xp = randint(50,150)
-
-    def Appear(self):
-        print(f"A {self.mon} appears ({self.health} HP)!")
+        self.xp = randint(50,150)        
 
     def Attack(self):
         print(f"The {self.mon} attacks for {self.attack}")
@@ -101,7 +98,7 @@ class Enemy:
 
 def Encounter():
     mon = Enemy()
-    mon.Appear()
+    print(f"A {mon.mon} appears ({mon.health} HP)!")
     print("Would you like to engage or attempt to get away?\n1 to fight\n2 to flee")
     value = int(input())
     while value not in [1,2]:
