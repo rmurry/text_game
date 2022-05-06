@@ -92,5 +92,4 @@ mon.Appear()
 while mon.health > 0:
     hero.Damage(mon.Attack())
     mon.Damage(hero.Attack())
-#hero.Damage(2)
-#print("Current health: {}".format(hero.health))
+    
