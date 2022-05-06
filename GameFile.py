@@ -5,7 +5,7 @@ import itertools
 
 class Character:
     def __init__(self):
-        
+
 
         self.name = input("What is your name, Adventurer?")
 
@@ -80,8 +80,6 @@ class Character:
     def Level(self,amount):
         self.xp += amount
 
-
-
 class Enemy:
     def __init__(self):
         monsters = ["dragon","liger","goblin","gremlin","leprechaun","sphinx"]
@@ -104,10 +102,11 @@ class Enemy:
         self.health -= amount
         if self.health <= 0:
             self.health = 0
-            print(f"The {self.mon} has fainted!\n")
+            print(f"The {self.mon} has fainted! You gain {self.xp}xp from this encounter.\n")
         else:
             self.health = self.health
             print(f"The {self.mon} has {self.health} health left!\n")
+        return self.xp ## I want to have this xp pass to the character
 
 def Encounter():
     mon = Enemy()
@@ -121,8 +120,30 @@ def Encounter():
 
 def Fight(char,mon):
     while mon.health > 0:
-        char.Damage(mon.Attack())
-        mon.Damage(char.Attack())
+        if mon.speed > char.speed:
+            char.Damage(mon.Attack())
+            mon.Damage(char.Attack())
+        else:
+            mon.Damage(char.Attack())
+            if mon.health > 0:
+                char.Damage(mon.Attack())
+            else:
+                break
+
+        if mon.health > 0:
+            print("Would you like to keep battling?\n1)Yes\n2)No")
+            value = int(input())
+            while value not in [1,2]:
+                print("Invalid Choice. Would you like to keep battling?\n1)Yes\n2)No")
+                value = int(input())
+            if value == 1:
+                pass
+            else:
+                if Run(char,mon) == 2:
+                    pass
+                else:
+                    break
+
 
 def Run(char,mon):
     print("In order to flee, you need to be faster than the monster - I need a speed check")
@@ -143,8 +164,8 @@ hero.Start()
 
 value,mon = Encounter()
 
-#if value == 1:
-#    Fight(hero,mon)
+if value == 1:
+    Fight(hero,mon)
 #elif value == 2:
 #    run_result = Run(hero,mon)
 #    if run_result == 1:
