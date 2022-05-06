@@ -98,6 +98,14 @@ def Fight(char,mon):
         char.Damage(mon.Attack())
         mon.Damage(char.Attack())
 
+def Run(char,mon):
+    print("In order to flee, you need to be faster than the monster - I need a speed check")
+    if char.speed >= mon.speed:
+        print("You're able to get away!")
+    else:
+        pass
+    
+
 
 
 
@@ -109,7 +117,7 @@ value,mon = Encounter()
 if value == 1:
     Fight(hero,mon)
 elif value == 2:
-    Run()
+    Run(hero,mon)
 
 
 
