@@ -1,0 +1,96 @@
+from random import randint
+import random
+
+class Character:
+    def __init__(self):
+        self.health = randint(20,100)
+        if self.health < 40:
+            self.attack = randint(15,20)
+            self.speed = randint(5,10)
+            self.ac = 3
+            self.type = 'Glass Cannon'
+        elif self.health < 60:
+            self.attack = randint(12,17)
+            self.speed = randint(4,9)
+            self.ac = 4
+            self.type = 'Rogue'
+        elif self.health < 80:
+            self.attack = randint(9,14)
+            self.speed = randint(3,8)
+            self.ac = 5
+            self.type = 'Paladin'
+        elif self.health <= 100:
+            self.attack = randint(8,13)
+            self.speed = randint(2,7)
+            self.ac = 6
+            self.type = 'Tank'
+        self.gold = 0
+        self.level = 1
+        self.xp = 0
+
+    def Start(self):
+        print("You roll for stats.\nHealth is {}\nAttack is {}\nSpeed is {}\nYou're playing as a {}, which makes your Armor Level {}\nYou're Level {} with {}xp\n".format(self.health,self.attack,self.speed,self.type,self.ac,self.level,self.xp))
+
+    def earnGold(self,amount):
+        self.gold += amount
+    
+    def spendGold(self,amount):
+        self.gold -= amount
+
+    def Heal(self,amount):
+        self.health += amount
+    
+    def Damage(self,amount):
+        self.health -= amount
+        print("Your HP is now {}\n".format(self.health))
+
+    def Slow(self,amount):
+        self.speed -= amount
+
+    def Boost(self,amount):
+        self.speed += amount
+
+    def Attack(self):
+        print("You attack for {}".format(self.attack))
+        return(self.attack)
+
+
+class Enemy:
+    def __init__(self):
+        monsters = ["dragon","liger","goblin","gremlin","leprechaun","sphinx"]
+        self.mon = random.choice(monsters)
+        self.health = randint(10,20)
+        self.attack = randint(4,12)
+        self.speed = randint(1,4)
+        self.gold = randint(2,10)
+        self.xp = randint(50,150)
+
+    def Appear(self):
+        print("A {} appears ({} HP)!".format(self.mon,self.health))
+
+    def Attack(self):
+        print("The {} attacks for {}".format(self.mon,self.attack))
+        return(self.attack)
+
+    
+    def Damage(self,amount):
+        self.health -= amount
+        if self.health <= 0:
+            self.health = 0
+            print("The {} has fainted !\n".format(self.mon))
+        else:
+            self.health = self.health
+            print("The {} has {} health left!\n".format(self.mon,self.health))
+
+
+hero = Character()
+hero.Start()
+
+mon = Enemy()
+mon.Appear()
+
+while mon.health > 0:
+    hero.Damage(mon.Attack())
+    mon.Damage(hero.Attack())
+#hero.Damage(2)
+#print("Current health: {}".format(hero.health))
