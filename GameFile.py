@@ -106,6 +106,7 @@ def Encounter():
     while value not in [1,2]:
         print("Invalid Choice.\nWould you like to engage or attempt to get away?\n1 to fight\n2 to flee")
         value = int(input())
+    
     return value,mon
 
 def Fight(char,mon):
@@ -159,8 +160,12 @@ def main():
     print(f"You chose to play as a {hero.type}. Your stats are:\nHealth: {hero.health}\nAttack: {hero.attack}\nSpeed: {hero.speed}\nYour Armor Level is {hero.ac}\nYou're Level {hero.level} with {hero.xp}xp\n")
 
     value,mon = Encounter()
-    hero.Level(Fight(hero,mon))
-    hero.StatusCheck()
+    if value == 1:
+        hero.Level(Fight(hero,mon))
+        hero.StatusCheck()
+    else:
+        "game over"                 ## placeholder
+    
 
 if __name__ == "__main__":
     main()
