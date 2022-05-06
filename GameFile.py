@@ -96,6 +96,8 @@ class Enemy:
             self.health = self.health
             print(f"The {self.mon} has {self.health} health left!\n")
 
+##### Classless Function #####
+
 def Encounter():
     mon = Enemy()
     print(f"A {mon.mon} appears ({mon.health} HP)!")
