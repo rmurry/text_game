@@ -1,7 +1,6 @@
 from random import randint
 import random
 import math
-import itertools
 
 class Character:
     def __init__(self,name,type):
