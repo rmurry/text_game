@@ -77,7 +77,7 @@ class Enemy:
         self.health -= amount
         if self.health <= 0:
             self.health = 0
-            print("The {} has fainted !\n".format(self.mon))
+            print("The {} has fainted!\n".format(self.mon))
         else:
             self.health = self.health
             print("The {} has {} health left!\n".format(self.mon,self.health))
@@ -90,7 +90,7 @@ def Encounter():
     while value not in [1,2]:
         print("Invalid Choice.\nWould you like to engage or attempt to get away?\n1 to fight\n2 to flee")
         value = int(input())
-    return value
+    return value,mon
 
 
 def Fight(char,mon):
@@ -104,8 +104,11 @@ def Fight(char,mon):
 hero = Character()
 hero.Start()
 
-if Encounter() == 1:
-    Fight()
+value,mon = Encounter()
+
+if value == 1:
+    Fight(hero,mon)
+elif value == 2:
     Run()
 
 
