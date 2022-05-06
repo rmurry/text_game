@@ -3,6 +3,7 @@ import random
 
 class Character:
     def __init__(self):
+        self.name = input("What is your name, Adventurer?")
         self.health = randint(20,100)
         if self.health < 40:
             self.attack = randint(15,20)
@@ -29,7 +30,7 @@ class Character:
         self.xp = 0
 
     def Start(self):
-        print("You roll for stats.\nHealth is {}\nAttack is {}\nSpeed is {}\nYou're playing as a {}, which makes your Armor Level {}\nYou're Level {} with {}xp\n".format(self.health,self.attack,self.speed,self.type,self.ac,self.level,self.xp))
+        print(f"You roll for stats.\nHealth is {self.health}\nAttack is {self.attack}\nSpeed is {self.speed}\nYou're playing as a {self.type}, which makes your Armor Level {self.ac}\nYou're Level {self.level} with {self.xp}xp\n")
 
     def earnGold(self,amount):
         self.gold += amount
@@ -42,7 +43,7 @@ class Character:
     
     def Damage(self,amount):
         self.health -= amount
-        print("Your HP is now {}\n".format(self.health))
+        print(f"Your HP is now {self.health}\n")
 
     def Slow(self,amount):
         self.speed -= amount
@@ -51,7 +52,7 @@ class Character:
         self.speed += amount
 
     def Attack(self):
-        print("You attack for {}".format(self.attack))
+        print(f"You attack for {self.attack}")
         return(self.attack)
 
 class Enemy:
@@ -65,10 +66,10 @@ class Enemy:
         self.xp = randint(50,150)
 
     def Appear(self):
-        print("A {} appears ({} HP)!".format(self.mon,self.health))
+        print(f"A {self.mon} appears ({self.health} HP)!")
 
     def Attack(self):
-        print("The {} attacks for {}".format(self.mon,self.attack))
+        print(f"The {self.mon} attacks for {self.attack}")
         return(self.attack)
 
     
@@ -76,10 +77,10 @@ class Enemy:
         self.health -= amount
         if self.health <= 0:
             self.health = 0
-            print("The {} has fainted!\n".format(self.mon))
+            print(f"The {self.mon} has fainted!\n")
         else:
             self.health = self.health
-            print("The {} has {} health left!\n".format(self.mon,self.health))
+            print("The {self.mon} has {self.health} health left!\n")
 
 def Encounter():
     mon = Enemy()
