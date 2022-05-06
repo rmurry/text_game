@@ -118,7 +118,7 @@ def Fight(char,mon):
             if mon.health > 0:                  ## checking if the monster is alive and can attack
                 char.Damage(mon.Attack())
             else:
-                return mon.xp                           ## if the monster is dead, end the Fight
+                return mon.xp                           ## if the monster is dead, end the Fight and return the xp
 
         if mon.health > 0:                      ## if the monster is alive, ask the player if they want to continue after each turn
             print("Would you like to keep battling?\n1)Yes\n2)No")
@@ -129,7 +129,8 @@ def Fight(char,mon):
             if value == 1:
                 pass
             else:
-                if Run(char,mon) == 2:          ## Check if the attempt to flee is successful
+                run = Run(char,mon)
+                if run == 2:          ## Check if the attempt to flee is successful
                     pass
                 else:
                     break
@@ -139,11 +140,9 @@ def Run(char,mon):
     print("In order to flee, you need to be faster than the monster - I need a speed check")
     if char.speed >= mon.speed:
         print("You're able to get away!")
-        value = 1
     else:
         print("You're unable to get away!")
-        value = 2
-    return value
+    
     
 
 def main():
