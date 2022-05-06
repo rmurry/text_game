@@ -61,9 +61,12 @@ class Character:
         return(self.attack)
 
     def Level(self,amount):
-        level_req = {}
-        for i in range(1,10):
-            level_req[i] = (200 + (i * 50)) * (i-1)
+        #Curly brackets are dictionaries
+        #level_req = {}
+        #list comprehension faster better than iterators
+        level_req = (200 + (i * 50)) * (i - 1) for i in range(1:10)
+        #for i in range(1,10):
+            #level_req[i] = (200 + (i * 50)) * (i-1)
 
         self.xp += amount
         if self.xp >= level_req[self.level+1]:
