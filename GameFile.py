@@ -5,8 +5,6 @@ import itertools
 
 class Character:
     def __init__(self):
-
-
         self.name = input("What is your name, Adventurer?")
 
         type_options = {1:"Tank",2:"Paladin",3:"Rogue",4:"Glass Cannon"}
@@ -43,13 +41,8 @@ class Character:
             self.ac = 6
 
         self.gold = 0
-
         self.level = 1
         self.xp = 0
-
-        level_req = {}
-        for i in range(1,10):
-            level_req[i] = (200 + (i * 50)) * (i-1)
 
     def Start(self):
         print(f"You chose to play as a {self.type}. Your stats are:\nHealth: {self.health}\nAttack: {self.attack}\nSpeed: {self.speed}\nYour Armor Level is {self.ac}\nYou're Level {self.level} with {self.xp}xp\n")
@@ -78,7 +71,16 @@ class Character:
         return(self.attack)
 
     def Level(self,amount):
+        level_req = {}
+        for i in range(1,10):
+            level_req[i] = (200 + (i * 50)) * (i-1)
+
         self.xp += amount
+        if self.xp >= level_req[self.level+1]:
+            self.level += 1
+            print(f"You've leveled up! You're now Level {self.level} with {self.xp}xp")
+        else:
+            print(f"You're currently Level {self.level} with {self.xp}xp.")
 
 class Enemy:
     def __init__(self):
@@ -103,10 +105,10 @@ class Enemy:
         if self.health <= 0:
             self.health = 0
             print(f"The {self.mon} has fainted! You gain {self.xp}xp from this encounter.\n")
+            return self.xp
         else:
             self.health = self.health
             print(f"The {self.mon} has {self.health} health left!\n")
-        return self.xp ## I want to have this xp pass to the character
 
 def Encounter():
     mon = Enemy()
@@ -128,7 +130,7 @@ def Fight(char,mon):
             if mon.health > 0:
                 char.Damage(mon.Attack())
             else:
-                break
+                return mon.Damage()
 
         if mon.health > 0:
             print("Would you like to keep battling?\n1)Yes\n2)No")
@@ -143,6 +145,8 @@ def Fight(char,mon):
                     pass
                 else:
                     break
+        if mon.health <= 0:
+            return mon.Damage()
 
 
 def Run(char,mon):
@@ -165,7 +169,7 @@ hero.Start()
 value,mon = Encounter()
 
 if value == 1:
-    Fight(hero,mon)
+    hero.Level(Fight(hero,mon))
 #elif value == 2:
 #    run_result = Run(hero,mon)
 #    if run_result == 1:
