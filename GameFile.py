@@ -85,17 +85,29 @@ class Enemy:
 def Encounter():
     mon = Enemy()
     mon.Appear()
+    print("Would you like to engage or attempt to get away?\n1 to fight\n2 to flee")
+    value = int(input())
+    while value not in [1,2]:
+        print("Invalid Choice.\nWould you like to engage or attempt to get away?\n1 to fight\n2 to flee")
+        value = int(input())
+    return value
+
 
 def Fight(char,mon):
     while mon.health > 0:
         char.Damage(mon.Attack())
         mon.Damage(char.Attack())
-    
+
 
 
 
 hero = Character()
 hero.Start()
+
+if Encounter() == 1:
+    Fight()
+    Run()
+
 
 
 
