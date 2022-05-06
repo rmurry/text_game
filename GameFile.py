@@ -82,14 +82,20 @@ class Enemy:
             self.health = self.health
             print("The {} has {} health left!\n".format(self.mon,self.health))
 
+def Encounter():
+    mon = Enemy()
+    mon.Appear()
+
+def Fight(char,mon):
+    while mon.health > 0:
+        char.Damage(mon.Attack())
+        mon.Damage(char.Attack())
+    
+
+
 
 hero = Character()
 hero.Start()
 
-mon = Enemy()
-mon.Appear()
 
-while mon.health > 0:
-    hero.Damage(mon.Attack())
-    mon.Damage(hero.Attack())
-    
+
