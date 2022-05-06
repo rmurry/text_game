@@ -54,7 +54,6 @@ class Character:
         print("You attack for {}".format(self.attack))
         return(self.attack)
 
-
 class Enemy:
     def __init__(self):
         monsters = ["dragon","liger","goblin","gremlin","leprechaun","sphinx"]
@@ -92,7 +91,6 @@ def Encounter():
         value = int(input())
     return value,mon
 
-
 def Fight(char,mon):
     while mon.health > 0:
         char.Damage(mon.Attack())
@@ -102,8 +100,11 @@ def Run(char,mon):
     print("In order to flee, you need to be faster than the monster - I need a speed check")
     if char.speed >= mon.speed:
         print("You're able to get away!")
+        value = 1
     else:
-        pass
+        print("You're unable to get away!")
+        value = 2
+    return value
     
 
 
@@ -117,7 +118,11 @@ value,mon = Encounter()
 if value == 1:
     Fight(hero,mon)
 elif value == 2:
-    Run(hero,mon)
+    run_result = Run(hero,mon)
+    if run_result == 1:
+        print("game over\n") ## Placeholder for successful evasion
+    elif run_result == 2:
+        Fight(hero,mon)
 
 
 
