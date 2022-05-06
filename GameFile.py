@@ -4,18 +4,9 @@ import math
 import itertools
 
 class Character:
-    def __init__(self):
-        self.name = input("What is your name, Adventurer?")
-
-        type_options = {1:"Tank",2:"Paladin",3:"Rogue",4:"Glass Cannon"}
-        
-        print("What class would you like to play as? This will determine your stats (type a number):\n1) Tank\n2) Paladin\n3) Rogue\n4) Glass Cannon")
-        type_choice = int(input())
-        while type_choice not in [1,2,3,4]:
-            print("Invalid Choice. What class would you like to play as? This will determine your stats (type a number):\n1) Tank\n2) Paladin\n3) Rogue\n4) Glass Cannon")
-            type_choice = int(input())
-        self.type = type_options[type_choice]
-
+    def __init__(self,name,type):
+        self.name = name
+        self.type = type
         if self.type == 'Glass Cannon':
             self.health =randint(20,40)
             self.attack = randint(15,20)
@@ -43,9 +34,6 @@ class Character:
         self.gold = 0
         self.level = 1
         self.xp = 0
-
-    def Start(self):
-        print(f"You chose to play as a {self.type}. Your stats are:\nHealth: {self.health}\nAttack: {self.attack}\nSpeed: {self.speed}\nYour Armor Level is {self.ac}\nYou're Level {self.level} with {self.xp}xp\n")
 
     def earnGold(self,amount):
         self.gold += amount
@@ -161,10 +149,19 @@ def Run(char,mon):
     
 
 
+name = input("What is your name, Adventurer?")
 
+type_options = {1:"Tank",2:"Paladin",3:"Rogue",4:"Glass Cannon"}
+print("What class would you like to play as? This will determine your stats (type a number):\n1) Tank\n2) Paladin\n3) Rogue\n4) Glass Cannon")
+type_choice = int(input())
+while type_choice not in [1,2,3,4]:
+    print("Invalid Choice. What class would you like to play as? This will determine your stats (type a number):\n1) Tank\n2) Paladin\n3) Rogue\n4) Glass Cannon")
+    type_choice = int(input())
+type = type_options[type_choice]
 
-hero = Character()
-hero.Start()
+hero = Character(name,type)
+print(f"You chose to play as a {hero.type}. Your stats are:\nHealth: {hero.health}\nAttack: {hero.attack}\nSpeed: {hero.speed}\nYour Armor Level is {hero.ac}\nYou're Level {hero.level} with {hero.xp}xp\n")
+
 
 value,mon = Encounter()
 
