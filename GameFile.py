@@ -34,6 +34,9 @@ class Character:
         self.level = 1
         self.xp = 0
 
+    def StatusCheck(self):
+        print(f"Health: {self.health}")
+
     def earnGold(self,amount):
         self.gold += amount
     
@@ -92,7 +95,6 @@ class Enemy:
         if self.health <= 0:
             self.health = 0
             print(f"The {self.mon} has fainted! You gain {self.xp}xp from this encounter.\n")
-            return self.xp
         else:
             self.health = self.health
             print(f"The {self.mon} has {self.health} health left!\n")
@@ -109,17 +111,17 @@ def Encounter():
 
 def Fight(char,mon):
     while mon.health > 0:
-        if mon.speed > char.speed:
+        if mon.speed > char.speed:              ## if the monster is faster than your character, it will attack first
             char.Damage(mon.Attack())
             mon.Damage(char.Attack())
-        else:
+        else:                                   ## if you're faster than the monster, you will attack first.
             mon.Damage(char.Attack())
-            if mon.health > 0:
+            if mon.health > 0:                  ## checking if the monster is alive and can attack
                 char.Damage(mon.Attack())
             else:
-                return mon.Damage()
+                return mon.xp                           ## if the monster is dead, end the Fight
 
-        if mon.health > 0:
+        if mon.health > 0:                      ## if the monster is alive, ask the player if they want to continue after each turn
             print("Would you like to keep battling?\n1)Yes\n2)No")
             value = int(input())
             while value not in [1,2]:
@@ -128,12 +130,10 @@ def Fight(char,mon):
             if value == 1:
                 pass
             else:
-                if Run(char,mon) == 2:
+                if Run(char,mon) == 2:          ## Check if the attempt to flee is successful
                     pass
                 else:
                     break
-        if mon.health <= 0:
-            return mon.Damage()
 
 
 def Run(char,mon):
@@ -147,31 +147,25 @@ def Run(char,mon):
     return value
     
 
-
-name = input("What is your name, Adventurer?")
-
-type_options = {1:"Tank",2:"Paladin",3:"Rogue",4:"Glass Cannon"}
-print("What class would you like to play as? This will determine your stats (type a number):\n1) Tank\n2) Paladin\n3) Rogue\n4) Glass Cannon")
-type_choice = int(input())
-while type_choice not in [1,2,3,4]:
-    print("Invalid Choice. What class would you like to play as? This will determine your stats (type a number):\n1) Tank\n2) Paladin\n3) Rogue\n4) Glass Cannon")
+def main():
+    name = input("What is your name, Adventurer?")
+    type_options = {1:"Tank",2:"Paladin",3:"Rogue",4:"Glass Cannon"}
+    print("What class would you like to play as? This will determine your stats (type a number):\n1) Tank\n2) Paladin\n3) Rogue\n4) Glass Cannon")
     type_choice = int(input())
-type = type_options[type_choice]
+    while type_choice not in [1,2,3,4]:
+        print("Invalid Choice. What class would you like to play as? This will determine your stats (type a number):\n1) Tank\n2) Paladin\n3) Rogue\n4) Glass Cannon")
+        type_choice = int(input())
+    type = type_options[type_choice]
 
-hero = Character(name,type)
-print(f"You chose to play as a {hero.type}. Your stats are:\nHealth: {hero.health}\nAttack: {hero.attack}\nSpeed: {hero.speed}\nYour Armor Level is {hero.ac}\nYou're Level {hero.level} with {hero.xp}xp\n")
+    hero = Character(name,type)
+    print(f"You chose to play as a {hero.type}. Your stats are:\nHealth: {hero.health}\nAttack: {hero.attack}\nSpeed: {hero.speed}\nYour Armor Level is {hero.ac}\nYou're Level {hero.level} with {hero.xp}xp\n")
 
-
-value,mon = Encounter()
-
-if value == 1:
+    value,mon = Encounter()
     hero.Level(Fight(hero,mon))
-#elif value == 2:
-#    run_result = Run(hero,mon)
-#    if run_result == 1:
-#        print("game over\n") ## Placeholder for successful evasion
-#    elif run_result == 2:
-#        Fight(hero,mon)
+    hero.StatusCheck()
+
+if __name__ == "__main__":
+    main()
 
 
 
