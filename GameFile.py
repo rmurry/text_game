@@ -69,6 +69,7 @@ class Character:
         else:
             print(f"You're currently Level {self.level} with {self.xp}xp.")
 
+'test'
 class Enemy:
     def __init__(self):
         monsters = ["dragon","liger","goblin","gremlin","leprechaun","sphinx"]
