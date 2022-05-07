@@ -164,7 +164,7 @@ def main():
         hero.Level(Fight(hero,mon))
         hero.StatusCheck()
     else:
-        "game over"                 ## placeholder
+        Run(hero,mon)
     
 
 if __name__ == "__main__":
