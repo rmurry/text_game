@@ -11,7 +11,7 @@ class Character:
             self.attack = randint(15,20)
             self.speed = randint(5,10)
             self.ac = 3
-            
+
         elif self.type == 'Rogue':
             self.health = randint(40,60)
             self.attack = randint(12,17)
@@ -39,13 +39,13 @@ class Character:
 
     def earnGold(self,amount):
         self.gold += amount
-    
+
     def spendGold(self,amount):
         self.gold -= amount
 
     def Heal(self,amount):
         self.health += amount
-    
+
     def Damage(self,amount):
         self.health -= amount
         print(f"Your HP is now {self.health}\n")
@@ -61,9 +61,7 @@ class Character:
         return(self.attack)
 
     def Level(self,amount):
-        level_req = {}
-        for i in range(1,10):
-            level_req[i] = (200 + (i * 50)) * (i-1)
+        level_req = {key: value for key, value in enumerate((200 + (i * 50)) * (i - 1) for i in range(1,10))}
 
         self.xp += amount
         if self.xp >= level_req[self.level+1]:
@@ -80,13 +78,13 @@ class Enemy:
         self.attack = randint(4,12)
         self.speed = randint(1,4)
         self.gold = randint(2,10)
-        self.xp = randint(50,150)        
+        self.xp = randint(50,150)
 
     def Attack(self):
         print(f"The {self.mon} attacks for {self.attack}")
         return(self.attack)
 
-    
+
     def Damage(self,amount):
         self.health -= amount
         if self.health <= 0:
@@ -106,7 +104,7 @@ def Encounter():
     while value not in [1,2]:
         print("Invalid Choice.\nWould you like to engage or attempt to get away?\n1 to fight\n2 to flee")
         value = int(input())
-    
+
     return value,mon
 
 def Fight(char,mon):
@@ -143,8 +141,8 @@ def Run(char,mon):
         print("You're able to get away!")
     else:
         print("You're unable to get away!")
-    
-    
+
+
 
 def main():
     name = input("What is your name, Adventurer?")
@@ -165,11 +163,7 @@ def main():
         hero.StatusCheck()
     else:
         Run(hero,mon)
-    
+
 
 if __name__ == "__main__":
     main()
-
-
-
-
